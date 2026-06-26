@@ -57,3 +57,32 @@ let user = [
 console.log(user[0]);
 console.log(user[0][0], user[1][0]);
 
+
+//オブジェクトに関しての補足
+
+
+let person = { 
+//　キー　　値 
+    name: "太郎", 
+    age: 20 
+}; 
+
+console.log(person.age);
+console.log(person.name);
+
+
+//オブジェクトのネスト 　（注意　ー＞２段階まで書くことが基本ですそれ以上書くと解読性が下がります）
+
+
+
+let person2 = { 
+//　キー　　値 
+    name: "太郎", 
+    age: 20 ,
+    adress:{
+        city:"osaka",
+        ward:"chuo-ward",
+    }
+}; 
+
+console.log(person2.adress.ward)
