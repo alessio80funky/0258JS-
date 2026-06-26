@@ -86,3 +86,68 @@ let person2 = {
 }; 
 
 console.log(person2.adress.ward)
+
+//関数に関しての補足
+
+//関数は処理のかたまりです。つまりデータを処理する処理機です。
+
+//宣言式関数
+
+let name3 = "alice";
+
+function sayHello() {
+    console.log("Hello " + name3);
+}
+
+//関数の呼び出し
+sayHello();
+
+/*
+functionの後に関数名をつける。
+function sayHello(引数　→　関数に渡すデータ) {
+
+処理したい内容をかく
+ console.log("Hello " + name3);
+
+}
+
+//関数の呼び出しを書く
+sayHello();
+
+
+*/
+
+//関数式関数　
+
+let hello = function(){
+    console.log("データ")
+}
+
+hello();
+
+
+//アロー関数
+
+let Aisatsu = () =>{
+    console.log("データ")
+}
+
+hello();
+
+//戻り値
+
+function add(a, b){
+    return a * b
+}
+
+console.log(add(2,2))//4
+
+///引数
+
+let naming = "taro";
+
+function greet(naming){
+    console.log("こんにちは"+ naming + "さん")
+}
+
+greet(naming)
