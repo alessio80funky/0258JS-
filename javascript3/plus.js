@@ -8,4 +8,25 @@
 
 //ストリング型同士のデータ型で使うとデータを結合する
 
-console.log("java" + "script")
+console.log("java" + "script");//javascript
+
+console.log("10" + "10");//1010
+
+//ナンバー型同士のデータ型で使うとデータ計算する
+
+console.log(4 + 2); //6
+
+//混合の場合
+            //20           101010
+console.log(10 + 10 + "10" + 10 + "10")
+
+
+//バッククォーテーションを使うとき注意
+
+let a = 10;
+
+let b = 20;
+
+console.log( typeof a + typeof b);
+
+console.log( `1 + 2 + 3 + ${a + b}`);
