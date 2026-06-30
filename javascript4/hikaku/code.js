@@ -22,5 +22,28 @@ let k = 0 !== false;
 console.log(k);//true
 
 
-
 //大小型「 <, >, <=, >=」
+
+//number
+
+a = 2 > 10;  //false
+b = 1 < 20; //true
+
+c = 18;
+d = 21;
+console.log(c <= 20);//true 20を含めて20以下の数字がtrue
+console.log(d <= 20);//false
+
+e = 18;
+f = 21;
+console.log(e >= 20);//false 20を含めて20の以上の数字がtrue
+console.log(f >= 20);//true
+
+
+//string
+//文字のunicodeの規格で判断する
+//         50     49(頭文字だけを読み込み)
+let num = "2" > "1000";//true
+ //        41       62
+let srt = "Apple" > "banana"//false
+
