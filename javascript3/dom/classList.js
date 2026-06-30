@@ -4,7 +4,7 @@
  */
 
 box.classList.add("active"); // <div class="box active">
-log.textContent = "✅ .classList.add('active') 実行中";
+
 
 /** ✅
  * 2. .classList.remove("hidden")
