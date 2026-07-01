@@ -25,7 +25,7 @@ let msg = "hello";
 
 msg += "world";
 
-console.log(msg);
+console.log(msg);//helloworld
 
 
 
@@ -43,18 +43,18 @@ console.log(msg);
 
 let z = 0.1;
 z &&= 200;
-console.log(z);
+console.log(z);//200
 
 //②　||=（or）
 //falsy値でしたら条件を満たすので、代入を行います
 
 let k = 0;
 k ||= 300;
-console.log(k);
+console.log(k);//300
 
 //③　??=（nullish）
 //undefined, null
 
 let j;
 j ??= 400;
-console.log(j);
+console.log(j);//400
