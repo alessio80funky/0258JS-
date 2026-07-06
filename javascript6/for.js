@@ -63,3 +63,23 @@ for(let z = 0, w = 1; z < 5 && w < 6; z++, w++){
 
 */
 
+//for...in文(オブジェクトにしか使わない)
+//オブジェクトのプロパティを列挙するための構文
+const user = {
+    name: "John",
+    age: 30,
+    city: "New York"
+};
+
+for (const key in user) {
+    console.log(`${key}: ${user[key]}`);
+}
+
+//for...of文(配列にしか使わない)
+//配列の要素を列挙するための構文
+const fruits = ["apple", "banana", "cherry"];
+
+for (const str of fruits) {
+    console.log(str);
+}
+
