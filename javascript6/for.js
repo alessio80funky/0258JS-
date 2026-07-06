@@ -83,3 +83,30 @@ for (const str of fruits) {
     console.log(str);
 }
 
+
+
+///for...of文の分割代入
+
+//for...of文の分割代入は、配列やオブジェクトの要素を取り出すための構文です。
+
+const data = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+]
+
+for (const [a, b, c] of data) {
+    console.log(a, b, c);
+}
+
+///配列の中にオブジェクトが入っている場合の分割代入
+
+const data2 = [
+    { name: "John", age: 30 },
+    { name: "Jane", age: 25 },
+    { name: "Bob", age: 40 }
+]
+
+for (const { name, age } of data2) {
+    console.log(name, age);
+}
