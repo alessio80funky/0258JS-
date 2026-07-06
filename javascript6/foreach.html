@@ -27,12 +27,12 @@
     </div>
 
     <script>
-
         const Input = document.getElementById("input");
         const Btn = document.getElementById("btn");
         const List = document.getElementById("list");
 
-        Btn.addEventListener("click", () => {
+    Btn.addEventListener("click", () => {
+        
            const Inputvalue = Input.value;
            const score = Inputvalue.split(",");
 
@@ -44,7 +44,8 @@
         List.innerHTML += "<li>" + score + "点は不合格です</li>";
     }
     });
-        })
+        
+    });
 
 
     </script>

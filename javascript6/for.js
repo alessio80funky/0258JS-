@@ -49,19 +49,19 @@ for (let k = 0; k < 5; k++) {
 
 
 //for文の補足(for文の中で複数の変数を使うことができる
-/*
 
+/*
 for(let z = 0, w = 1; z < 5; z++, w++){
     console.log("zの値は" , z );
     console.log("wの値は" , w );
 }
-
-for(let z = 0, w = 1; z < 5 && w < 6; z++, w++){
+*/
+for(let z = 0, w = 1; z < 5 , w < 10; z++, w++){
     console.log("zの値は" , z );
     console.log("wの値は" , w );
 }
 
-*/
+
 
 //for...in文(オブジェクトにしか使わない)
 //オブジェクトのプロパティを列挙するための構文
