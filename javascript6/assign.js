@@ -34,17 +34,30 @@ console.log(...other);
 let person = {
     name: "John",   
     age: 30,
-    country: "USA"
+    country: "USA",
+    city: "New York",
+    job: "Engineer"
+    
 }
 
 //従来の書き方
 let name = person.name;
 let age = person.age;
 let country = person.country;
+let city = person.city;
+let job = person.job;
 
-console.log(name, age, country);
+console.log(name, age, country, city, job);
 
 //分割代入の書き方
 let { name: name2, age: age2, country: country2 } = person; //オブジェクトのプロパティ名と同じ変数名を使う必要がある
 
 console.log(name2, age2, country2);
+
+//...rest
+
+let { name: name3, age: age3, ...rest } = person;
+
+console.log(name3, age3);
+console.log(rest);//[...]を書かずに
+
