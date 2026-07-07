@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <title>商品管理</title>
+</head>
+<body>
+
+<div class="app">
+
+    <h1>商品管理</h1>
+
+<div class="form-area">
+
+    <input type="text" id="product" placeholder="商品を入力してください">
+    <input type="number" id="price" placeholder="商品価格を入力してください">
+    <button id="add">追加</button>
+    </div>
+
+    
+    <h1>商品一覧</h1>
+
+    <div class="product-list" id="list">
+
+
+</div>
+</div>
+    
+    <script>
+
+        function Product(name , price){
+            this.name = name;
+            this.price = price;
+
+            this.showInfo = function (){
+                return `${this.name}:${this.price}`;
+            }
+        }
+
+        const productName = document.getElementById("product");
+        const productPrice = document.getElementById("price");
+        const productList = document.getElementById("list");
+        const add = document.getElementById("add");
+  
+        add.addEventListener("click", () => {
+            const n = productName.value;
+            const p = productPrice.value;
+
+            if (n === "" || p === ""){
+                alert("値を入力してください。")
+                return;
+            }
+
+
+            const product = new Product(n, p);
+
+            const card = document.createElement("div");
+            card.classList.add("product-card");
+
+
+            card.innerHTML =`
+            
+            <h3>${product.name}</h3>
+            <p>${product.price}</p>
+
+            `
+
+            productList.appendChild(card)
+
+        })
+
+
+
+
+    </script>
+    
+</body>
+</html>
