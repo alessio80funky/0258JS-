@@ -2,15 +2,11 @@
 
 //.then()
 
-/*
-const path = require("path");
-const { pathToFileURL } = require("url");
-
-fetch(pathToFileURL(path.resolve("./data.json")))
+fetch("./data.json")
 .then(res => res.json())
 .then(data => console.log(data))
 .catch(err => console.log(err))
-*/
+
 
 //async/await
 
@@ -21,7 +17,6 @@ async function load(){
     const data = await res.json();
     console.log(data)
 }
-
 }catch(error){
     console.log(error)
 }
