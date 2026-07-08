@@ -30,6 +30,13 @@
 <script>
 
     const $ = id => document.getElementById(id);
+    //色の設定
+    const colors = [
+        {border: '#e74c3c', background: 'rgba(231,76,60,0.15)' },
+        {border: '#3498db', background:'rgba(52,152,219,0.15)'},
+        {border: '#2ecc71', background: 'rgba(46,204,113,0.15)'},
+        {border: '#f39c12', background: 'rgba(243,156,18,0.15)'},
+    ]
 
     $("btn").addEventListener("click", function(){
         fetch("./data.json")
@@ -41,21 +48,23 @@
             
             
             new Chart(chart, {
-                type: 'bar',
+                type: 'radar',
                 data: {
                     labels: json.labels || "not found",
-                    datasets: json.datasets.map(ds => ({
+                    //ds: datasetsを預ける場所　i:：インデックスを色を振り分けるための変数
+                    datasets: json.datasets.map((ds, i) => ({
                         ...ds,
-                        borderWidth: 2,
-                        pointRadius:3,
-                         borderColor: '#FF6384',
+                        borderWidth: 4,
+                        pointRadius:4,
+                        //それぞれのいろをそれぞれのデータに付与するー＞特定のグラフの端っこの色
+                        borderColor:colors[i % colors.length].border,
+                        // //それぞれのいろをそれぞれのデータに付与するー＞特定のグラフのメイン色
+                        backgroundColor:colors[i % colors.length].background,
                     }))
                 },
                 options:{
                     responsive: true,
-                    scales:{
-                        y:{beginAtZero: true}
-                    }
+                    beginAtZero: true
                 }
                 
                });

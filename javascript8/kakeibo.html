@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <title>kakeibo app</title>
+</head>
+<body>
+
+
+ <div class="container">
+
+    <div class="summary">
+
+        <div class="summary-item">
+            <span class="label"></span>
+            <span class="amount income">¥0</span>
+    </div>
+       <div class="summary-item">
+            <span class="label"></span>
+             <span class="amount expense">¥0</span>
+
+      </div>
+     <div class="summary-item">
+            <span class="label"></span>
+             <span class="amount balance">¥0</span>
+
+    </div>
+    </div>
+
+    <div class="form-container">
+        <h2>取引をを追加</h2>
+
+        <form>
+            <div class="form-group">
+                <label for="description">取引の内容：</label>
+                <input type="text" placeholder="例： ランチ代など" required>
+            </div>
+              <div class="form-group">
+                <label for="amount">取引の金額：</label>
+                <input type="number" placeholder="例： 1000, 2000など" required>
+            </div>
+              <div class="form-group">
+                <label for="type">取引の種類：</label>
+                <select required>
+                    <option value="expense">支出</option>
+                      <option value="income">収入</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn-submit">追加</button>
+        </form>
+
+    </div>
+
+    <div class="transaction-container">
+        <h2>取引履歴</h2>
+        <ul class="transaction-list"></ul>
+    </div>
+
+
+ </div>
+
+
+    <script>
+
+    </script>
+    
+</body>
+</html>
