@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.1/dist/chart.umd.min.js"></script>
+
+    <title>kakeibo app</title>
+</head>
+<body>
+
+
+ <div class="container">
+
+    <div class="summary">
+
+        <div class="summary-item">
+            <span class="label">収入</span>
+            <span class="amount income" id="totalIncome">¥0</span>
+    </div>
+       <div class="summary-item">
+            <span class="label">支出</span>
+             <span class="amount expense" id="totalExpense">¥0</span>
+
+      </div>
+     <div class="summary-item">
+            <span class="label">合計</span>
+             <span class="amount balance" id="balance">¥0</span>
+
+    </div>
+    </div>
+
+    <div class="form-container">
+        <h2>取引をを追加</h2>
+
+        <form id="transactionForm">
+            <div class="form-group">
+                <label for="description">取引の内容：</label>
+                <input type="text"  placeholder="例： ランチ代など" id="description" required>
+            </div>
+              <div class="form-group">
+                <label for="amount">取引の金額：</label>
+                <input type="number" placeholder="例： 1000, 2000など" id="amount" required>
+            </div>
+              <div class="form-group">
+                <label for="type">取引の種類：</label>
+                <select id="type" required>
+                    <option value="expense">支出</option>
+                      <option value="income">収入</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn-submit">追加</button>
+        </form>
+
+    </div>
+
+    <div id="chartContainer" class="chart-container">
+        <h1 id="title"></h1>
+        <canvas id="Chart" width="400" height="200"></canvas>
+        <button id="btn">表示</button>
+     <button onclick="location.reload()">ページをリロード</button>
+    </div>
+
+    <div class="transaction-container">
+        <h2>取引履歴</h2>
+        <ul id="transactionList" class="transaction-list"></ul>
+    </div>
+
+
+ </div>
+
+
+    <script>
+
+        const totalIncomeEl = document.getElementById("totalIncome");
+        const totalExpenseEl = document.getElementById("totalExpense");
+        const balanceEl = document.getElementById("balance");
+
+        const form = document.getElementById("transactionForm");
+        const descInput = document.getElementById("description");
+        const amountInput = document.getElementById("amount");
+        const selectImput = document.getElementById("type");
+
+        const transList = document.getElementById("transactionList");
+
+        const $ = id => document.getElementById(id);
+
+        const STORAGE_KEY = "kakeibo_260713";
+
+        let transactions = [];
+        
+
+        function init(){
+
+            loadTransactions();
+            Analytics();
+
+            form.addEventListener("submit", handleSubmit);
+
+            updateUI();
+        }
+
+        init();
+
+        function Analytics(){
+
+            const colors = [
+        {border: '#e74c3c', background: 'rgba(231,76,60,0.15)' },
+        {border: '#3498db', background:'rgba(52,152,219,0.15)'},
+        {border: '#2ecc71', background: 'rgba(46,204,113,0.15)'},
+        {border: '#f39c12', background: 'rgba(243,156,18,0.15)'},
+    ]
+             $("btn").addEventListener("click", function(){
+        
+        const income = transactions.filter(trans => trans.type === "income").reduce((sum, trans) => sum + trans.amount, 0)
+        const expense = transactions.filter(trans => trans.type === "expense").reduce((sum, trans) => sum + trans.amount, 0)
+          const balance = income - expense;
+
+    
+            $("title").textContent =  "収支グラフ";
+            
+            new Chart( $("Chart"), {
+                type: 'bar',
+                data: {
+                    labels: ["収入", "支出", "合計"],
+                    datasets: [{
+                        label: "合計",
+                        data: [income, expense, balance],
+                        borderWidth: 2,
+                        borderColor: [colors[2].border, colors[0].border, colors[1].border],
+                        backgroundColor: [colors[2].background, colors[0].background, colors[1].background],
+                    }]
+                },
+                options:{
+                 responsive: true,
+                  scales: {
+                        y: { beginAtZero: true }
+                    }
+                }
+
+                });
+                
+            });
+        };
+
+
+        function loadTransactions(){
+            const stored = localStorage.getItem(STORAGE_KEY);
+            if(stored){
+                transactions = JSON.parse(stored)
+            }
+        }
+
+        function saveTransactions(){
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(transactions))
+        }
+        
+        function handleSubmit(e){
+            e.preventDefault();
+
+            const description = descInput.value;
+            const amount = parseFloat(amountInput.value);
+            const type = selectImput.value;
+
+            if(!description || !amount || amount <= 0){
+                alert("正しい内容と金額を入れてください");
+                return;
+            }
+
+            const transaction = {
+                id: Date.now(),
+                description,
+                amount,
+                type,
+                date: new Date().toLocaleString("ja-JP")
+            };
+            
+            transactions.unshift(transaction)
+            saveTransactions();
+            updateUI();
+
+            form.reset();
+        }
+
+
+        function deleteTransaction(id){
+            transactions = transactions.filter(trans => trans.id !== id);
+            saveTransactions();
+            updateUI();
+        }
+
+
+        function updateUI(){
+            updateTransactionList();
+            updateSummary();
+
+        }
+        
+
+        function updateTransactionList(){
+            transList.innerHTML ="";
+
+            transactions.forEach(transaction => {
+                const li = document.createElement("li");
+                li.className = `transaction-item ${transaction.type}`;
+
+                const sign = transaction.type === "income" ? "+" : "-";
+
+                li.innerHTML=`<div class="transaction-info">
+                <div class="transaction-description">${transaction.description}</div>
+                <small style="color: #999;">${transaction.date}</small>
+            </div>
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <span class="transaction-amount ${transaction.type}">
+                    ${sign}¥${transaction.amount.toLocaleString()}
+                </span>
+                <button class="btn-delete" onclick="deleteTransaction(${transaction.id})">削除</button>
+            </div>`;
+
+            transList.appendChild(li);
+            })
+        }
+
+        function updateSummary(){
+
+            const income = transactions.filter(trans => trans.type === "income").reduce((sum, trans) => sum + trans.amount, 0)
+            const expense = transactions.filter(trans => trans.type === "expense").reduce((sum, trans) => sum + trans.amount, 0)
+            const balance = income - expense;
+
+            totalIncomeEl.textContent  = `¥${income.toLocaleString()}`;
+            totalExpenseEl.textContent = `¥${expense.toLocaleString()}`;
+            balanceEl.textContent = `¥${balance.toLocaleString()}`;
+
+            if(balance > 0){
+                balanceEl.style.color = "green";
+            }else if(balance < 0){
+                balanceEl.style.color = "red";
+            }else{
+                balanceEl.style.color = "blue";
+            }
+
+        }
+
+
+
+
+
+
+    </script>
+    
+</body>
+</html>
